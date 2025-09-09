@@ -217,22 +217,17 @@ configure_hf_keep_alive() {
 if [ "$MODE_CHOICE" = "1" ]; then
     echo -e "${BLUE}=== 极速模式 ===${NC}"
     echo
-    
+
     echo -e "${YELLOW}当前UUID: $(grep "UUID = " app.py | head -1 | cut -d"'" -f2)${NC}"
-    read -p "请输入新的 UUID (留空自动生成): " UUID_INPUT
-    if [ -z "$UUID_INPUT" ]; then
-        UUID_INPUT=$(generate_uuid)
-        echo -e "${GREEN}自动生成UUID: $UUID_INPUT${NC}"
-    fi
-    
+    UUID_INPUT=$(generate_uuid)
+    echo -e "${GREEN}自动生成UUID: $UUID_INPUT${NC}"
+
     sed -i "s/UUID = os.environ.get('UUID', '[^']*')/UUID = os.environ.get('UUID', '$UUID_INPUT')/" app.py
     echo -e "${GREEN}UUID 已设置为: $UUID_INPUT${NC}"
-    
-    sed -i "s/CFIP = os.environ.get('CFIP', '[^']*')/CFIP = os.environ.get('CFIP', 'joeyblog.net')/" app.py
-    echo -e "${GREEN}优选IP已自动设置为: joeyblog.net${NC}"
-    
-    configure_hf_keep_alive
-    
+
+    sed -i "s/CFIP = os.environ.get('CFIP', '[^']*')/CFIP = os.environ.get('CFIP', 'www.visa.com.tw')/" app.py
+    echo -e "${GREEN}优选IP已自动设置为: www.visa.com.tw${NC}"
+
     echo -e "${GREEN}YouTube分流已自动配置${NC}"
     echo
     echo -e "${GREEN}极速配置完成！正在启动服务...${NC}"
